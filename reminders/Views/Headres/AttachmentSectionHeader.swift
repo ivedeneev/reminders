@@ -14,7 +14,8 @@ final class AttachmentSectionHeader : UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        textLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.medium)
+//        textLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.medium)
+        textLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.regular)
         textLabel.textColor = Color.sectionTitle
         addSubview(textLabel)
     }

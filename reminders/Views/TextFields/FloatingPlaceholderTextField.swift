@@ -22,7 +22,7 @@ class FloatingLabelTextField : UITextField {
     
     private var placeholderLabel = UILabel()
     private var flotatingLabelTopPosition: CGFloat {
-        return textRect(forBounds: bounds).minY - 16
+        return 12
     }
     
     override var placeholder: String? {
@@ -56,13 +56,18 @@ class FloatingLabelTextField : UITextField {
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        let height = self.bounds.height
-        print(CGRect(x: 0, y: height - 4 - 17, width: bounds.width, height: 17))
-        return CGRect(x: 0, y: height - 4 - 17, width: bounds.width, height: 17)
+        let textSize = super.textRect(forBounds: bounds).size
+        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
     }
     
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let textSize = super.textRect(forBounds: bounds).size
+        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
+    }
+
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 0, y: bounds.height - 4 - 17, width: bounds.width, height: 17)
+        let textSize = super.textRect(forBounds: bounds).size
+        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
     }
     
     private func initialSetup() {
@@ -84,11 +89,12 @@ class FloatingLabelTextField : UITextField {
     }
     
     private func setupPlaceholderLabel() {
-        placeholderLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.medium)
+//        placeholderLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.medium)
+        placeholderLabel.font = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.regular)
     }
     
     private func animatePlaceholderLabelOnTop() {
-        self.placeholderLabel.frame.origin = textRect(forBounds: bounds).origin
+        self.placeholderLabel.frame.origin = self.placeholderRect(forBounds: self.bounds).origin
         UIView.animate(withDuration: 0.2) {
             self.placeholderLabel.alpha = 1
             self.placeholderLabel.frame.origin = CGPoint(x: 0, y: self.flotatingLabelTopPosition)
@@ -100,7 +106,7 @@ class FloatingLabelTextField : UITextField {
         UIView.animate(withDuration: 0.2,
                        animations: {
                         self.placeholderLabel.textColor = self.inactiveColor
-                        self.placeholderLabel.frame.origin = self.textRect(forBounds: self.bounds).origin
+                        self.placeholderLabel.frame.origin = self.placeholderRect(forBounds: self.bounds).origin
                         self.placeholderLabel.alpha = 0
         }) { (_) in
             self.placeholderLabel.removeFromSuperview()

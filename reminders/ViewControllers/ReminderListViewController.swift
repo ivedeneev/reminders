@@ -16,8 +16,8 @@ final class ReminderListViewController : BaseViewController {
     }
     
     @objc func showNewReminder() {
-        let nc = UINavigationController(navigationBarClass: UINavigationBar.self, toolbarClass: nil)
-        nc.viewControllers = [ NewReminderViewController() ]
+//        let nc = UINavigationController(navigationBarClass: UINavigationBar.self, toolbarClass: nil)
+//        nc.viewControllers = [ NewReminderViewController() ]
 //         let nc = UINavigationController.init(rootViewController: NewReminderViewController())
         
 //        nc.setNavigationBarHidden(true, animated: false)
@@ -28,8 +28,10 @@ final class ReminderListViewController : BaseViewController {
         let rect = UIScreen.main.bounds
         let safeAreaInsets = UIApplication.shared.keyWindow!.safeAreaInsets
         let inset: CGFloat = 15
-        let width = min(rect.width - inset * 2, 525)
-        let frame = CGRect(x: inset, y: safeAreaInsets.top + inset + 20, width: width, height: rect.height - (safeAreaInsets.top + safeAreaInsets.bottom + inset * 2 + 20))
+        let width = rect.width
+        let height = min(rect.height - (safeAreaInsets.top + inset + 20), 600)
+        let originY = rect.height - (height)
+        let frame = CGRect(x: 0, y: originY, width: width, height: height)
         
         let vc = NewReminderViewController()
         let dimView = UIView(frame: navigationController!.view.bounds)
@@ -38,6 +40,32 @@ final class ReminderListViewController : BaseViewController {
         
         navigationController?.addChildViewController(vc)
         vc.view.frame = frame
+        
+        let path = UIBezierPath(roundedRect: vc.view.bounds,
+                                byRoundingCorners: [.topLeft, .topRight],
+                                cornerRadii: CGSize(width: 15, height: 15))
+
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        vc.view.layer.mask = maskLayer
+        
+        let shadowLayer = CALayer()
+        let shadowSize : CGFloat = 3
+        let shadowFrame = CGRect(x: frame.origin.x - shadowSize / 2,
+                                 y: frame.origin.y - shadowSize / 2,
+                                 width: frame.size.width + shadowSize,
+                                 height: frame.size.height + shadowSize)
+        let shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 15)
+//        self.view.layer.masksToBounds = false
+//        shadowLayer.frame = shadowFrame
+        shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowLayer.shadowOffset = .zero
+        shadowLayer.shadowOpacity = 0.33
+        shadowLayer.shadowRadius = 6
+        shadowLayer.shadowPath = shadowPath.cgPath
+        view.layer.addSublayer(shadowLayer)
+//        shadowLayer.zPosition = -1
+        
         UIView.transition(with: navigationController!.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.navigationController?.view.addSubview(vc.view)
         }) { (_) in
@@ -57,7 +85,6 @@ final class ReminderListViewController : BaseViewController {
 //        nc.preferredContentSize = frame.size
         
 //        present(nc, animated: true, completion: nil)
-
     }
 }
 

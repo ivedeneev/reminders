@@ -39,7 +39,8 @@ final class SingleLineTextInputCell : UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         textField.borderStyle = .none
-        textField.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+//        textField.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+        textField.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         textField.textColor = Color.text
         textField.delegate = self
         textField.tintColor = Color.activeField

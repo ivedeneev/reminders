@@ -33,15 +33,15 @@ final class NewReminderViewController : BaseViewController {
         section.insetForSection = UIEdgeInsetsMake(0, 0, 20, 0)
         let ttl = TextFieldCellViewModel(placeholder: "Название")
         let data = TextFieldCellViewModel(placeholder: "Время и дата", isUserInteractionEnabled: false) { [unowned self] (_) in
-            DispatchQueue.main.async {
-                self.director.performUpdates {
-                    if section.contains(item: self.datePickerRow) {
-                        section.remove(item: self.datePickerRow)
-                    } else {
-                        section.insert(item: self.datePickerRow, at: 2)
-                    }
-                }
-            }
+//            DispatchQueue.main.async {
+//                self.director.performUpdates {
+//                    if section.contains(item: self.datePickerRow) {
+//                        section.remove(item: self.datePickerRow)
+//                    } else {
+//                        section.insert(item: self.datePickerRow, at: 2)
+//                    }
+//                }
+//            }
         }
         let repeatRate = TextFieldCellViewModel(placeholder: "Повтор")
         let notes = TextFieldCellViewModel(placeholder: "Заметки")
@@ -50,15 +50,15 @@ final class NewReminderViewController : BaseViewController {
         
         datePickerRow = CollectionItem<DatePickerCell>(item: ())
         
-        datarow.onSelect = { [unowned self] _ in
-            self.director.performUpdates {
-                if section.contains(item: self.datePickerRow) {
-                    section.remove(item: self.datePickerRow)
-                } else {
-                    section.insert(item: self.datePickerRow, at: 2)
-                }
-            }
-        }
+//        datarow.onSelect = { [unowned self] _ in
+//            self.director.performUpdates {
+//                if section.contains(item: self.datePickerRow) {
+//                    section.remove(item: self.datePickerRow)
+//                } else {
+//                    section.insert(item: self.datePickerRow, at: 2)
+//                }
+//            }
+//        }
         section += datarow
         
         section += CollectionItem<SingleLineTextInputCell>(item: repeatRate)
@@ -75,11 +75,11 @@ final class NewReminderViewController : BaseViewController {
         section1.append(items: attachmentsVms.map { CollectionItem<AttachmentCell>(item: $0) })
         director += section1
         
-        collectionView.layer.cornerRadius = 15
-        collectionView.clipsToBounds = true
-        view.layer.cornerRadius = 15
-        view.clipsToBounds = true
-        
+//        collectionView.layer.cornerRadius = 15
+//        collectionView.clipsToBounds = true
+//        view.layer.cornerRadius = 15
+//        view.clipsToBounds = true
+//
         titleView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 54)
         titleView.autoresizingMask = [.flexibleWidth]
         titleView.backgroundColor = Color.background
@@ -106,19 +106,27 @@ final class NewReminderViewController : BaseViewController {
         
         view.addSubview(titleView)
         
-        let footerView = UIView(frame: CGRect(x: 0, y: view.bounds.height - 50, width: view.bounds.width, height: 50))
-        footerView.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        view.addSubview(footerView)
-        
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: view.bounds.width * 0.8, height: 44))
+        button.addTarget(self, action: #selector(_dismiss), for: .touchUpInside)
         button.backgroundColor = Color.activeField
         button.setTitle("Добавить".uppercased(), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.autoresizingMask = [.flexibleLeftMargin]
-        button.frame.origin.x = footerView.bounds.midX - 70
+        button.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin,. flexibleWidth]
+        
+        let safeAreaInsets = UIApplication.shared.keyWindow!.safeAreaInsets
+        button.frame.origin.x = view.bounds.midX - view.bounds.width * 0.4
+        button.frame.origin.y = view.bounds.maxY - 60 - safeAreaInsets.bottom
         button.layer.cornerRadius = button.bounds.height / 2
         button.clipsToBounds = true
-        footerView.addSubview(button)
+        view.addSubview(button)
+        
+        let shadowPath = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.bounds.height / 2)
+        button.layer.masksToBounds = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        button.layer.shadowOpacity = 0.33
+        button.layer.shadowRadius = 2
+        button.layer.shadowPath = shadowPath.cgPath
     }
     
     func setupNavigationBar() {
@@ -140,17 +148,31 @@ final class NewReminderViewController : BaseViewController {
         maskLayer.path = path.cgPath
         titleView.layer.mask = maskLayer
         
-        let shadowSize : CGFloat = 3
-        let shadowFrame = CGRect(x: -shadowSize / 2,
-                                 y: -shadowSize / 2,
-                                 width: self.view.frame.size.width + shadowSize,
-                                 height: self.view.frame.size.height + shadowSize)
-        let shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 15)
-        self.view.layer.masksToBounds = false
-        self.view.layer.shadowColor = UIColor.black.cgColor
-        self.view.layer.shadowOffset = .zero
-        self.view.layer.shadowOpacity = 0.33
-        self.view.layer.shadowRadius = 6
-        self.view.layer.shadowPath = shadowPath.cgPath
+        
+//        let path1 = UIBezierPath(roundedRect: view.bounds,
+//                                byRoundingCorners: [.topLeft, .topRight],
+//                                cornerRadii: CGSize(width: 15, height: 15))
+//
+//        let mask = CAShapeLayer()
+//        maskLayer.path = path1.cgPath
+//        view.layer.mask = mask
+
+
+//        let shadowLayer = CALayer()
+//        let shadowSize : CGFloat = 3
+//        let shadowFrame = CGRect(x: -shadowSize / 2,
+//                                 y: -shadowSize / 2,
+//                                 width: self.view.frame.size.width + shadowSize,
+//                                 height: self.view.frame.size.height + shadowSize)
+//        let shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 15)
+////        self.view.layer.masksToBounds = false
+//        shadowLayer.frame = shadowFrame
+//        shadowLayer.shadowColor = UIColor.black.cgColor
+//        shadowLayer.shadowOffset = .zero
+//        shadowLayer.shadowOpacity = 0.33
+//        shadowLayer.shadowRadius = 6
+//        shadowLayer.shadowPath = shadowPath.cgPath
+//        view.layer.addSublayer(shadowLayer)
+//        shadowLayer.zPosition = -1
     }
 }

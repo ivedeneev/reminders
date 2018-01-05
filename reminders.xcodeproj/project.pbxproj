@@ -28,6 +28,8 @@
 		D67F2B721FF8277000C8E99C /* AttachmentSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B711FF8277000C8E99C /* AttachmentSectionHeader.swift */; };
 		D67F2B741FF8417500C8E99C /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B731FF8417500C8E99C /* DatePickerCell.swift */; };
 		D67F2B761FF8FB8500C8E99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D67F2B751FF8FB8500C8E99C /* Assets.xcassets */; };
+		D67F2B7A1FFAED4A00C8E99C /* NewReminderDataInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B791FFAED4A00C8E99C /* NewReminderDataInputCell.swift */; };
+		D67F2B7C1FFAF8D100C8E99C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		D67F2B711FF8277000C8E99C /* AttachmentSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentSectionHeader.swift; sourceTree = "<group>"; };
 		D67F2B731FF8417500C8E99C /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		D67F2B751FF8FB8500C8E99C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D67F2B791FFAED4A00C8E99C /* NewReminderDataInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderDataInputCell.swift; sourceTree = "<group>"; };
+		D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 				D61CD87C1FF6A90300478151 /* ReminderListViewController.swift */,
 				D61CD87E1FF6A91900478151 /* BaseViewController.swift */,
 				D61CD8871FF6B57A00478151 /* NewReminderViewController.swift */,
+				D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				D67F2B681FF7BEBC00C8E99C /* SingleLineTextInputCell.swift */,
 				D67F2B6E1FF8213E00C8E99C /* AttachmentCell.swift */,
 				D67F2B731FF8417500C8E99C /* DatePickerCell.swift */,
+				D67F2B791FFAED4A00C8E99C /* NewReminderDataInputCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -302,9 +308,11 @@
 				D61CD87D1FF6A90300478151 /* ReminderListViewController.swift in Sources */,
 				D61CD8841FF6AAD000478151 /* Font.swift in Sources */,
 				D61CD8821FF6AAC700478151 /* Color.swift in Sources */,
+				D67F2B7A1FFAED4A00C8E99C /* NewReminderDataInputCell.swift in Sources */,
 				D67F2B741FF8417500C8E99C /* DatePickerCell.swift in Sources */,
 				D67F2B5D1FF6F95900C8E99C /* NewReminderNavigationBar.swift in Sources */,
 				D61CD8881FF6B57A00478151 /* NewReminderViewController.swift in Sources */,
+				D67F2B7C1FFAF8D100C8E99C /* DatePickerViewController.swift in Sources */,
 				D61CD87F1FF6A91900478151 /* BaseViewController.swift in Sources */,
 				D61CD8681FF6564400478151 /* reminders.xcdatamodeld in Sources */,
 				D67F2B721FF8277000C8E99C /* AttachmentSectionHeader.swift in Sources */,

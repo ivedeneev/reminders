@@ -9,60 +9,87 @@
 import UIKit
 import CollectionKit
 
+protocol NewReminderViewModelProtocol {
+    func scheduleNewReminder()
+}
+
+final class DatePickerViewModel : TextInputViewModelProtocol {
+    init(placeholder: String, isManualEditingAllowed : Bool = true) {
+        self.placeholder = placeholder
+        self.isManualEditingAllowed = isManualEditingAllowed
+    }
+    
+    var text: String?
+    let placeholder: String?
+    var isManualEditingAllowed: Bool
+    var date: Date?
+}
+
+final class NewReminderViewModel : NewReminderViewModelProtocol {
+    let titleViewModel: TextInputViewModel
+    let dateViewModel: DatePickerViewModel
+//    let titleViewModel: TextInputViewModel
+//    let titleViewModel: TextInputViewModel
+
+    
+    init() {
+        titleViewModel = TextInputViewModel(placeholder: "Название")
+        dateViewModel = DatePickerViewModel(placeholder: "Время и дата", isManualEditingAllowed : false)
+    }
+    
+    func scheduleNewReminder() {
+        print(titleViewModel.text)
+    }
+}
+
+protocol NewReminderViewControllerPresenter : class {
+    func toggle()
+    func handlePan(gestureRecognizer: UIPanGestureRecognizer)
+}
+
 final class NewReminderViewController : BaseViewController {
+    weak var delegate: NewReminderViewControllerPresenter?
+    static let pullUpHeaderHeight: CGFloat = 54
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private lazy var director: CollectionDirector = CollectionDirector(colletionView: self.collectionView)
     private let titleView = UIView()
     private var datePickerRow: AbstractCollectionItem!
     
+    private let headerTapGestureRecognizer = UITapGestureRecognizer()
+    private let pullUpPanGestureRecognizer = UIPanGestureRecognizer()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    init(delegate: NewReminderViewControllerPresenter) {
+        super.init(nibName: nil, bundle: nil)
+        self.delegate = delegate
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let viewModel: NewReminderViewModel = NewReminderViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
-
-        collectionView.frame = view.bounds
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(collectionView)
-        collectionView.backgroundColor = Color.background
-        collectionView.alwaysBounceVertical = true
-        collectionView.keyboardDismissMode = .onDrag
-        collectionView.contentInset = UIEdgeInsetsMake(54, 0, 50, 0)
-        collectionView.register(AttachmentSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: AttachmentSectionHeader.reuseIdentifier)
-
-        director.shouldUseAutomaticCellRegistration = true
+        setupCollectionView()
         let section = CollectionSection()
         section.insetForSection = UIEdgeInsetsMake(0, 0, 20, 0)
-        let ttl = TextFieldCellViewModel(placeholder: "Название")
-        let data = TextFieldCellViewModel(placeholder: "Время и дата", isUserInteractionEnabled: false) { [unowned self] (_) in
-//            DispatchQueue.main.async {
-//                self.director.performUpdates {
-//                    if section.contains(item: self.datePickerRow) {
-//                        section.remove(item: self.datePickerRow)
-//                    } else {
-//                        section.insert(item: self.datePickerRow, at: 2)
-//                    }
-//                }
-//            }
-        }
-        let repeatRate = TextFieldCellViewModel(placeholder: "Повтор")
-        let notes = TextFieldCellViewModel(placeholder: "Заметки")
-        section += CollectionItem<SingleLineTextInputCell>(item: ttl)
-        let datarow = CollectionItem<SingleLineTextInputCell>(item: data)
-        
+        section += CollectionItem<SingleLineTextInputCell>(item: self.viewModel.titleViewModel)
+        let datarow = CollectionItem<SingleLineTextInputCell>(item: self.viewModel.dateViewModel)
         datePickerRow = CollectionItem<DatePickerCell>(item: ())
-        
-//        datarow.onSelect = { [unowned self] _ in
-//            self.director.performUpdates {
-//                if section.contains(item: self.datePickerRow) {
-//                    section.remove(item: self.datePickerRow)
-//                } else {
-//                    section.insert(item: self.datePickerRow, at: 2)
-//                }
-//            }
-//        }
+        datarow.onSelect = { [unowned self] _ in
+            self.view.endEditing(true)
+            self.showDatePicker()
+        }
         section += datarow
-        
-        section += CollectionItem<SingleLineTextInputCell>(item: repeatRate)
-        section += CollectionItem<SingleLineTextInputCell>(item: notes)
+//        let repeatRate = TextFieldCellViewModel(placeholder: "Повтор")
+//        let notes = TextInputViewModel(placeholder: "Заметки")
+//        section += CollectionItem<SingleLineTextInputCell>(item: repeatRate)
+//        section += CollectionItem<SingleLineTextInputCell>(item: notes)
         director += section
         
         let section1 = CollectionSection()
@@ -74,16 +101,43 @@ final class NewReminderViewController : BaseViewController {
         let attachmentsVms: [AttachmentViewModelProtocol] = [callVm, photoVm, micVm]
         section1.append(items: attachmentsVms.map { CollectionItem<AttachmentCell>(item: $0) })
         director += section1
+
+        setupUI()
+    }
+    
+    func setupCollectionView() {
+        collectionView.frame = CGRect(x: 0, y: NewReminderViewController.pullUpHeaderHeight, width: view.bounds.width, height: view.bounds.height - NewReminderViewController.pullUpHeaderHeight)
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = Color.background
+        collectionView.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .onDrag
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0)
+        collectionView.register(AttachmentSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: AttachmentSectionHeader.reuseIdentifier)
         
-//        collectionView.layer.cornerRadius = 15
-//        collectionView.clipsToBounds = true
-//        view.layer.cornerRadius = 15
-//        view.clipsToBounds = true
-//
+        director.shouldUseAutomaticCellRegistration = true
+    }
+    
+    @objc private func handleHeaderTap() {
+       delegate?.toggle()
+    }
+    
+    @objc private func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
+        delegate?.handlePan(gestureRecognizer: gestureRecognizer)
+    }
+    
+    func setupUI() {
         titleView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 54)
         titleView.autoresizingMask = [.flexibleWidth]
         titleView.backgroundColor = Color.background
-    
+        titleView.isUserInteractionEnabled = true
+        headerTapGestureRecognizer.addTarget(self, action: #selector(handleHeaderTap))
+        pullUpPanGestureRecognizer.addTarget(self, action: #selector(handlePan(gestureRecognizer:)))
+        titleView.addGestureRecognizer(headerTapGestureRecognizer)
+        titleView.addGestureRecognizer(pullUpPanGestureRecognizer)
+        
+        view.backgroundColor = .clear
+        
         let separatorLayer = CALayer()
         separatorLayer.frame = CGRect(x: 0, y: 54 - 0.5, width: view.bounds.width, height: 0.5)
         separatorLayer.backgroundColor = Color.separator.cgColor
@@ -91,6 +145,7 @@ final class NewReminderViewController : BaseViewController {
         
         let buttonFrame = CGRect(x: 15, y: titleView.bounds.midY - 15, width: 30, height: 30)
         let cancelButton = UIButton(frame: buttonFrame)
+        cancelButton.addTarget(self, action: #selector(_dismiss), for: .touchUpInside)
         let image = #imageLiteral(resourceName: "Close").withRenderingMode(.alwaysTemplate)
         cancelButton.setImage(image, for: .normal)
         cancelButton.tintColor = Color.activeField
@@ -99,15 +154,31 @@ final class NewReminderViewController : BaseViewController {
         let padding: CGFloat = 8
         let label = UILabel(frame: CGRect(x: cancelButton.frame.maxX + 8, y: 15, width: view.bounds.width - padding * 2, height: 24))
         label.textColor = Color.text
-        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
-        label.text = "Новое напоминание"
+        label.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
+        label.text = "Добавить напоминание"
         label.autoresizingMask = [.flexibleWidth]
         titleView.addSubview(label)
         
         view.addSubview(titleView)
         
+        titleView.clipsToBounds = true
+        titleView.layer.cornerRadius = 15
+        titleView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        let shadowLayer = CALayer()
+        shadowLayer.frame = titleView.bounds
+        
+        let shadowPath1 = UIBezierPath(roundedRect: shadowLayer.frame, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+        shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowLayer.shadowOffset = .zero
+        shadowLayer.shadowOpacity = 0.33
+        shadowLayer.shadowRadius = 6
+        shadowLayer.shadowPath = shadowPath1
+        
+        view.layer.insertSublayer(shadowLayer, below: collectionView.layer)
+        
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: view.bounds.width * 0.8, height: 44))
-        button.addTarget(self, action: #selector(_dismiss), for: .touchUpInside)
+        button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         button.backgroundColor = Color.activeField
         button.setTitle("Добавить".uppercased(), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -127,52 +198,27 @@ final class NewReminderViewController : BaseViewController {
         button.layer.shadowOpacity = 0.33
         button.layer.shadowRadius = 2
         button.layer.shadowPath = shadowPath.cgPath
-    }
     
-    func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(_dismiss))
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.background
     }
     
     @objc func _dismiss() {
         dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        let path = UIBezierPath(roundedRect: titleView.frame,
-                                byRoundingCorners: [.topLeft, .topRight],
-                                cornerRadii: CGSize(width: 15, height: 15))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
-        titleView.layer.mask = maskLayer
-        
-        
-//        let path1 = UIBezierPath(roundedRect: view.bounds,
-//                                byRoundingCorners: [.topLeft, .topRight],
-//                                cornerRadii: CGSize(width: 15, height: 15))
-//
-//        let mask = CAShapeLayer()
-//        maskLayer.path = path1.cgPath
-//        view.layer.mask = mask
+    @objc func saveAction() {
+        viewModel.scheduleNewReminder()
+    }
+    
+    private func showDatePicker() {
+        let datepicker = DatePickerViewController()
+        datepicker.delegate = viewModel
+        datepicker.modalPresentationStyle = .overCurrentContext
+        present(datepicker, animated: true, completion: nil)
+    }
+}
 
-
-//        let shadowLayer = CALayer()
-//        let shadowSize : CGFloat = 3
-//        let shadowFrame = CGRect(x: -shadowSize / 2,
-//                                 y: -shadowSize / 2,
-//                                 width: self.view.frame.size.width + shadowSize,
-//                                 height: self.view.frame.size.height + shadowSize)
-//        let shadowPath = UIBezierPath(roundedRect: shadowFrame, cornerRadius: 15)
-////        self.view.layer.masksToBounds = false
-//        shadowLayer.frame = shadowFrame
-//        shadowLayer.shadowColor = UIColor.black.cgColor
-//        shadowLayer.shadowOffset = .zero
-//        shadowLayer.shadowOpacity = 0.33
-//        shadowLayer.shadowRadius = 6
-//        shadowLayer.shadowPath = shadowPath.cgPath
-//        view.layer.addSublayer(shadowLayer)
-//        shadowLayer.zPosition = -1
+extension NewReminderViewModel : DatePickerDelegate {
+    func didSelect(date: Date) {
+        dateViewModel.date = date
     }
 }

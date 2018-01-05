@@ -212,7 +212,8 @@ final class NewReminderViewController : BaseViewController {
     private func showDatePicker() {
         let datepicker = DatePickerViewController()
         datepicker.delegate = viewModel
-        datepicker.modalPresentationStyle = .overCurrentContext
+        datepicker.modalPresentationStyle = .overFullScreen
+        datepicker.modalTransitionStyle = .crossDissolve
         present(datepicker, animated: true, completion: nil)
     }
 }

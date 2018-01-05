@@ -24,31 +24,34 @@ final class DatePickerViewController : BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIView.animate(withDuration: 0.1) {
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.33)
-        }
-        datePicker.frame = CGRect(x: 0, y: view.bounds.height - 216, width: view.bounds.width, height: 216)
+
+        datePicker.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 216)
+        datePicker.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         datePicker.backgroundColor = .white
         datePicker.locale = NSLocale.current
-        datePicker.sizeToFit()
         view.addSubview(datePicker)
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - datePicker.bounds.height-44, width: view.bounds.width, height: 44))
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - 44, width: view.bounds.width, height: 44))
         let item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
         let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.setItems([spaceItem, item], animated: false)
         view.addSubview(toolbar)
-        setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 0.1) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.33)
+            self.datePicker.frame = CGRect(x: 0, y: self.view.bounds.height - 216, width: self.view.bounds.width, height: 216)
+            toolbar.frame = CGRect(x: 0, y: self.view.bounds.height - self.datePicker.bounds.height-44, width: self.view.bounds.width, height: 44)
+        }
+        
 
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIView.animate(withDuration: 0.1) {
             self.view.backgroundColor = .clear
+           self.datePicker.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: 216)
         }
     }
     

@@ -87,6 +87,7 @@ extension ReminderListViewController : NewReminderViewControllerPresenter {
     func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
+            newReminderViewController.view.endEditing(true)
             if isNewReminderViewExpanded {
                 pullUpAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
                     let originY = self.view.bounds.height - NewReminderViewController.pullUpHeaderHeight
@@ -111,7 +112,7 @@ extension ReminderListViewController : NewReminderViewControllerPresenter {
             break
         case .ended:
             let progress = gestureRecognizer.translation(in: newReminderViewController.view).y / newReminderViewController.view.bounds.size.height
-            pullUpAnimator.isReversed = abs(progress) < 0.3
+            pullUpAnimator.isReversed = abs(progress) < 0.2
             pullUpAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
             break
         default:

@@ -7,7 +7,17 @@
 //
 
 import Foundation
+import UserNotifications
 
 final class AppDelegateViewModel {
-    
+    func registerForLocalNotifications() {
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .sound]
+        center.requestAuthorization(options: options) {
+            (granted, error) in
+            if !granted {
+                print(error?.localizedDescription ?? "error")
+            }
+        }
+    }
 }

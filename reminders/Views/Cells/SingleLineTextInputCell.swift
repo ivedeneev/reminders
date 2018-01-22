@@ -8,6 +8,7 @@
 
 import UIKit
 import CollectionKit
+//import SwiftSignalKit
 
 protocol TextInputViewModelProtocol {
     var text: String? {get set}
@@ -36,7 +37,7 @@ final class SingleLineTextInputCell : UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             guard viewModel.isManualEditingAllowed else { return }
-            separatorLayer.backgroundColor = isSelected ? Color.activeField.cgColor : Color.placeholder.cgColor
+            separatorLayer.backgroundColor = isSelected ? Color.accent.cgColor : Color.placeholder.cgColor
         }
     }
     
@@ -47,7 +48,7 @@ final class SingleLineTextInputCell : UICollectionViewCell {
         textField.placeholderFont = Font.smallTitle
         textField.textColor = Color.text
         textField.delegate = self
-        textField.tintColor = Color.activeField
+        textField.tintColor = Color.accent
         textField.inactiveColor = Color.sectionTitle
         backgroundColor = Color.background
         
@@ -79,6 +80,7 @@ extension SingleLineTextInputCell : ConfigurableCollectionItem {
         textField.attributedPlaceholder = placeholder
         
         textField.isUserInteractionEnabled = item.isManualEditingAllowed
+        textField.text = item.text
     }
 }
 

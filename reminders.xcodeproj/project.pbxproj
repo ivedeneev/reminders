@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D61443C02006DD91003E2B40 /* SwiftSignalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61443BB2006DD77003E2B40 /* SwiftSignalKit.framework */; };
+		D61443C12006DD91003E2B40 /* SwiftSignalKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D61443BB2006DD77003E2B40 /* SwiftSignalKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D61CD8601FF6564400478151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61CD85F1FF6564400478151 /* AppDelegate.swift */; };
 		D61CD8621FF6564400478151 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61CD8611FF6564400478151 /* ViewController.swift */; };
 		D61CD8651FF6564400478151 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D61CD8631FF6564400478151 /* Main.storyboard */; };
@@ -19,6 +21,11 @@
 		D61CD8821FF6AAC700478151 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61CD8811FF6AAC700478151 /* Color.swift */; };
 		D61CD8841FF6AAD000478151 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61CD8831FF6AAD000478151 /* Font.swift */; };
 		D61CD8881FF6B57A00478151 /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61CD8871FF6B57A00478151 /* NewReminderViewController.swift */; };
+		D63E0F88201128710041BC31 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63E0F87201128710041BC31 /* DashboardViewController.swift */; };
+		D63E0F8E2011287F0041BC31 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63E0F8D2011287F0041BC31 /* SettingsViewController.swift */; };
+		D66B73E4200A32F00091348C /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66B73DF200A32F00091348C /* LocalNotificationsService.swift */; };
+		D66B73E7200A39220091348C /* PlainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66B73E6200A39220091348C /* PlainEvent.swift */; };
+		D66B73E9200A42560091348C /* LocalNotificationRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66B73E8200A42560091348C /* LocalNotificationRequestBuilder.swift */; };
 		D67F2B5D1FF6F95900C8E99C /* NewReminderNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B5C1FF6F95900C8E99C /* NewReminderNavigationBar.swift */; };
 		D67F2B601FF6FFC200C8E99C /* InsettedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B5F1FF6FFC200C8E99C /* InsettedLabel.swift */; };
 		D67F2B661FF7BC2500C8E99C /* CollectionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D67F2B651FF7BC2500C8E99C /* CollectionKit.framework */; };
@@ -30,16 +37,78 @@
 		D67F2B761FF8FB8500C8E99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D67F2B751FF8FB8500C8E99C /* Assets.xcassets */; };
 		D67F2B7A1FFAED4A00C8E99C /* NewReminderDataInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B791FFAED4A00C8E99C /* NewReminderDataInputCell.swift */; };
 		D67F2B7C1FFAF8D100C8E99C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */; };
+		D689FBA52016857C003364C5 /* MediaPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D689FBA42016857C003364C5 /* MediaPickerController.swift */; };
+		D6F31FB020166261004848AA /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F31FAF20166261004848AA /* ContactsService.swift */; };
+		D6F31FB2201662DA004848AA /* ContactsPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F31FB1201662DA004848AA /* ContactsPickerViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D61443B62006DD77003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0445DD81A7C2CA500267924;
+			remoteInfo = SSignalKit;
+		};
+		D61443B82006DD77003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0445DE31A7C2CA500267924;
+			remoteInfo = SSignalKitTests;
+		};
+		D61443BA2006DD77003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0085B221B282B9800EAF753;
+			remoteInfo = SwiftSignalKit;
+		};
+		D61443BC2006DD77003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0085B2C1B282B9800EAF753;
+			remoteInfo = SwiftSignalKitTests;
+		};
+		D61443BE2006DD77003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0B417ED1D7DFA63004562A4;
+			remoteInfo = SwiftSignalKitMac;
+		};
+		D61443C22006DD91003E2B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0085B211B282B9800EAF753;
+			remoteInfo = SwiftSignalKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D61443C42006DD91003E2B40 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D61443C12006DD91003E2B40 /* SwiftSignalKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSignalKit.xcodeproj; path = Signals/SSignalKit.xcodeproj; sourceTree = "<group>"; };
 		D61CD85C1FF6564400478151 /* reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61CD85F1FF6564400478151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D61CD8611FF6564400478151 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D61CD8641FF6564400478151 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D61CD8671FF6564400478151 /* reminders.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = reminders.xcdatamodel; sourceTree = "<group>"; };
 		D61CD86C1FF6564400478151 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D61CD86E1FF6564400478151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D61CD8761FF6A6B800478151 /* AppDelegateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateViewModel.swift; sourceTree = "<group>"; };
 		D61CD8791FF6A7FC00478151 /* AppDelegateRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateRouter.swift; sourceTree = "<group>"; };
 		D61CD87C1FF6A90300478151 /* ReminderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +116,11 @@
 		D61CD8811FF6AAC700478151 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D61CD8831FF6AAD000478151 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D61CD8871FF6B57A00478151 /* NewReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderViewController.swift; sourceTree = "<group>"; };
+		D63E0F87201128710041BC31 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		D63E0F8D2011287F0041BC31 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D66B73DF200A32F00091348C /* LocalNotificationsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
+		D66B73E6200A39220091348C /* PlainEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainEvent.swift; sourceTree = "<group>"; };
+		D66B73E8200A42560091348C /* LocalNotificationRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationRequestBuilder.swift; sourceTree = "<group>"; };
 		D67F2B5C1FF6F95900C8E99C /* NewReminderNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderNavigationBar.swift; sourceTree = "<group>"; };
 		D67F2B5F1FF6FFC200C8E99C /* InsettedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsettedLabel.swift; sourceTree = "<group>"; };
 		D67F2B651FF7BC2500C8E99C /* CollectionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CollectionKit.framework; path = Carthage/Build/iOS/CollectionKit.framework; sourceTree = "<group>"; };
@@ -58,6 +132,10 @@
 		D67F2B751FF8FB8500C8E99C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D67F2B791FFAED4A00C8E99C /* NewReminderDataInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReminderDataInputCell.swift; sourceTree = "<group>"; };
 		D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		D689FBA42016857C003364C5 /* MediaPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerController.swift; sourceTree = "<group>"; };
+		D689FBAA2016887D003364C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		D6F31FAF20166261004848AA /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
+		D6F31FB1201662DA004848AA /* ContactsPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPickerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,15 +144,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				D67F2B661FF7BC2500C8E99C /* CollectionKit.framework in Frameworks */,
+				D61443C02006DD91003E2B40 /* SwiftSignalKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D61443AF2006DD77003E2B40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D61443B72006DD77003E2B40 /* SSignalKit.framework */,
+				D61443B92006DD77003E2B40 /* SSignalKitTests.xctest */,
+				D61443BB2006DD77003E2B40 /* SwiftSignalKit.framework */,
+				D61443BD2006DD77003E2B40 /* SwiftSignalKitTests.xctest */,
+				D61443BF2006DD77003E2B40 /* SwiftSignalKitMac.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D61CD8531FF6564400478151 = {
 			isa = PBXGroup;
 			children = (
+				D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */,
 				D61CD85E1FF6564400478151 /* reminders */,
 				D61CD85D1FF6564400478151 /* Products */,
 				D67F2B641FF7BC2500C8E99C /* Frameworks */,
@@ -102,7 +194,7 @@
 				D67F2B751FF8FB8500C8E99C /* Assets.xcassets */,
 				D61CD8631FF6564400478151 /* Main.storyboard */,
 				D61CD86B1FF6564400478151 /* LaunchScreen.storyboard */,
-				D61CD86E1FF6564400478151 /* Info.plist */,
+				D689FBAB2016887D003364C5 /* Info.plist */,
 				D61CD8661FF6564400478151 /* reminders.xcdatamodeld */,
 			);
 			path = reminders;
@@ -111,6 +203,10 @@
 		D61CD8741FF6568900478151 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D6F31FAA20166246004848AA /* Services */,
+				D66B73E8200A42560091348C /* LocalNotificationRequestBuilder.swift */,
+				D66B73E5200A39040091348C /* Domain */,
+				D66B73DF200A32F00091348C /* LocalNotificationsService.swift */,
 				D61CD8801FF6AAB700478151 /* UI */,
 			);
 			path = Core;
@@ -120,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				D61CD8761FF6A6B800478151 /* AppDelegateViewModel.swift */,
+				D6F31FB1201662DA004848AA /* ContactsPickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -139,6 +236,9 @@
 				D61CD87E1FF6A91900478151 /* BaseViewController.swift */,
 				D61CD8871FF6B57A00478151 /* NewReminderViewController.swift */,
 				D67F2B7B1FFAF8D100C8E99C /* DatePickerViewController.swift */,
+				D63E0F87201128710041BC31 /* DashboardViewController.swift */,
+				D63E0F8D2011287F0041BC31 /* SettingsViewController.swift */,
+				D689FBA42016857C003364C5 /* MediaPickerController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -150,6 +250,14 @@
 				D61CD8831FF6AAD000478151 /* Font.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		D66B73E5200A39040091348C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D66B73E6200A39220091348C /* PlainEvent.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		D67F2B5E1FF6FFAB00C8E99C /* Views */ = {
@@ -207,6 +315,14 @@
 			path = Headres;
 			sourceTree = "<group>";
 		};
+		D6F31FAA20166246004848AA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D6F31FAF20166261004848AA /* ContactsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -218,10 +334,12 @@
 				D61CD8591FF6564400478151 /* Frameworks */,
 				D61CD85A1FF6564400478151 /* Resources */,
 				D67F2B631FF7BBE200C8E99C /* ShellScript */,
+				D61443C42006DD91003E2B40 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D61443C32006DD91003E2B40 /* PBXTargetDependency */,
 			);
 			name = reminders;
 			productName = reminders;
@@ -255,12 +373,56 @@
 			mainGroup = D61CD8531FF6564400478151;
 			productRefGroup = D61CD85D1FF6564400478151 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D61443AF2006DD77003E2B40 /* Products */;
+					ProjectRef = D61443AE2006DD77003E2B40 /* SSignalKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D61CD85B1FF6564400478151 /* reminders */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D61443B72006DD77003E2B40 /* SSignalKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SSignalKit.framework;
+			remoteRef = D61443B62006DD77003E2B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D61443B92006DD77003E2B40 /* SSignalKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SSignalKitTests.xctest;
+			remoteRef = D61443B82006DD77003E2B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D61443BB2006DD77003E2B40 /* SwiftSignalKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSignalKit.framework;
+			remoteRef = D61443BA2006DD77003E2B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D61443BD2006DD77003E2B40 /* SwiftSignalKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftSignalKitTests.xctest;
+			remoteRef = D61443BC2006DD77003E2B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D61443BF2006DD77003E2B40 /* SwiftSignalKitMac.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftSignalKitMac.framework;
+			remoteRef = D61443BE2006DD77003E2B40 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D61CD85A1FF6564400478151 /* Resources */ = {
@@ -298,28 +460,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				D61CD8621FF6564400478151 /* ViewController.swift in Sources */,
+				D63E0F88201128710041BC31 /* DashboardViewController.swift in Sources */,
 				D61CD87A1FF6A7FD00478151 /* AppDelegateRouter.swift in Sources */,
 				D67F2B601FF6FFC200C8E99C /* InsettedLabel.swift in Sources */,
 				D67F2B6F1FF8213E00C8E99C /* AttachmentCell.swift in Sources */,
+				D66B73E4200A32F00091348C /* LocalNotificationsService.swift in Sources */,
 				D67F2B6B1FF7D03B00C8E99C /* FloatingPlaceholderTextField.swift in Sources */,
+				D6F31FB2201662DA004848AA /* ContactsPickerViewModel.swift in Sources */,
 				D67F2B691FF7BEBC00C8E99C /* SingleLineTextInputCell.swift in Sources */,
 				D61CD8771FF6A6B800478151 /* AppDelegateViewModel.swift in Sources */,
 				D61CD8601FF6564400478151 /* AppDelegate.swift in Sources */,
+				D6F31FB020166261004848AA /* ContactsService.swift in Sources */,
 				D61CD87D1FF6A90300478151 /* ReminderListViewController.swift in Sources */,
 				D61CD8841FF6AAD000478151 /* Font.swift in Sources */,
 				D61CD8821FF6AAC700478151 /* Color.swift in Sources */,
 				D67F2B7A1FFAED4A00C8E99C /* NewReminderDataInputCell.swift in Sources */,
+				D689FBA52016857C003364C5 /* MediaPickerController.swift in Sources */,
 				D67F2B741FF8417500C8E99C /* DatePickerCell.swift in Sources */,
 				D67F2B5D1FF6F95900C8E99C /* NewReminderNavigationBar.swift in Sources */,
 				D61CD8881FF6B57A00478151 /* NewReminderViewController.swift in Sources */,
 				D67F2B7C1FFAF8D100C8E99C /* DatePickerViewController.swift in Sources */,
+				D66B73E7200A39220091348C /* PlainEvent.swift in Sources */,
 				D61CD87F1FF6A91900478151 /* BaseViewController.swift in Sources */,
 				D61CD8681FF6564400478151 /* reminders.xcdatamodeld in Sources */,
 				D67F2B721FF8277000C8E99C /* AttachmentSectionHeader.swift in Sources */,
+				D66B73E9200A42560091348C /* LocalNotificationRequestBuilder.swift in Sources */,
+				D63E0F8E2011287F0041BC31 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D61443C32006DD91003E2B40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftSignalKit;
+			targetProxy = D61443C22006DD91003E2B40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D61CD8631FF6564400478151 /* Main.storyboard */ = {
@@ -336,6 +514,14 @@
 				D61CD86C1FF6564400478151 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D689FBAB2016887D003364C5 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D689FBAA2016887D003364C5 /* Base */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -451,6 +637,7 @@
 		D61CD8721FF6564400478151 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = ADW46RGFHX;
@@ -472,6 +659,7 @@
 		D61CD8731FF6564400478151 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";

@@ -33,6 +33,22 @@ class FloatingLabelTextField : UITextField {
         }
     }
     
+    override var text: String? {
+        didSet {
+            if placeholderLabel.superview == nil {
+                addSubview(placeholderLabel)
+            }
+            
+            if let txt = text, !txt.isEmpty {
+                if self.placeholderLabel.frame.origin.y != self.flotatingLabelTopPosition {
+                    animatePlaceholderLabelOnTop()
+                }
+            } else {
+                animatePlaceholderLabelOnBottom()
+            }
+        }
+    }
+    
     override var attributedPlaceholder: NSAttributedString? {
         didSet {
             placeholderLabel.text = attributedPlaceholder?.string.uppercased()
@@ -57,17 +73,17 @@ class FloatingLabelTextField : UITextField {
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let textSize = super.textRect(forBounds: bounds).size
-        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
+        return CGRect.init(origin: CGPoint(x: 0, y: 13), size: textSize)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         let textSize = super.textRect(forBounds: bounds).size
-        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
+        return CGRect.init(origin: CGPoint(x: 0, y: 13), size: textSize)
     }
 
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         let textSize = super.textRect(forBounds: bounds).size
-        return CGRect.init(origin: CGPoint.init(x: 0, y: 13), size: textSize)
+        return CGRect.init(origin: CGPoint(x: 0, y: 13), size: textSize)
     }
     
     private func initialSetup() {
@@ -94,11 +110,11 @@ class FloatingLabelTextField : UITextField {
     
     private func animatePlaceholderLabelOnTop() {
         let originY = bounds.height - 3 - font!.lineHeight
-        self.placeholderLabel.frame.origin = CGPoint.init(x: 0, y: originY)
+        self.placeholderLabel.frame.origin = CGPoint(x: 0, y: originY)
         UIView.animate(withDuration: 0.2) {
             self.placeholderLabel.alpha = 1
             self.placeholderLabel.frame.origin = CGPoint(x: 0, y: self.flotatingLabelTopPosition)
-            self.placeholderLabel.textColor = self.tintColor
+            self.placeholderLabel.textColor = self.isFirstResponder ? self.tintColor : self.inactiveColor
         }
     }
     

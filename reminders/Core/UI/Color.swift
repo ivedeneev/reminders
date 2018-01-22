@@ -13,7 +13,7 @@ final class Color {
     static let separator = color(hex: 0xC8C7CC)
     static let placeholder = color(hex: 0xC8C7CC)
     static let text = color(hex: 666666)
-    static let activeField = color(hex: 0x4A90E2)
+    static let accent = color(hex: 0x4A90E2)
     static let sectionTitle = color(hex: 0x8A8A8F)
 }
 

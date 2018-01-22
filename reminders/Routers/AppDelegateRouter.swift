@@ -21,8 +21,14 @@ final class AppDelegateRouter : AppDelegateRouterProtocol {
     
     func showInitialScreen() {
         let window = appDelegate.window
-        let navController = UINavigationController(rootViewController: ReminderListViewController())
-        window!.rootViewController = navController
+        
+        let tabBarController = UITabBarController()
+        
+        let remindersNavController = UINavigationController(rootViewController: ReminderListViewController())
+        let dashboardNavController = UINavigationController(rootViewController: DashboardViewController())
+        let settingsNavController = UINavigationController(rootViewController: SettingsViewController())
+        tabBarController.setViewControllers([remindersNavController, dashboardNavController, settingsNavController], animated: false)
+        window!.rootViewController = tabBarController
         window!.makeKeyAndVisible()
     }
 }

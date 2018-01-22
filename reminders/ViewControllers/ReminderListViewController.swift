@@ -16,7 +16,11 @@ final class ReminderListViewController : BaseViewController {
     private let dimView = UIView()
     private var isNewReminderViewExpanded: Bool {
         return newReminderViewController.view.superview != nil &&
-            newReminderViewController.view.frame.minY < view.bounds.height - NewReminderViewController.pullUpHeaderHeight
+            newReminderViewController.view.frame.minY < bottomPosition
+    }
+    
+    private var bottomPosition: CGFloat {
+        return view.bounds.height - NewReminderViewController.pullUpHeaderHeight - tabBarController!.tabBar.bounds.height
     }
     
     override func viewDidLoad() {
@@ -29,12 +33,12 @@ final class ReminderListViewController : BaseViewController {
         dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         dimView.backgroundColor = Color.color(hex: 0x000000, alpha: 0.55)
 
-        let rect = UIScreen.main.bounds
+        let rect = view.bounds
         let safeAreaInsets = UIApplication.shared.keyWindow!.safeAreaInsets
         let topInset: CGFloat = 35
         let width = rect.width
         let height = min(rect.height - (safeAreaInsets.top + topInset + 20), 550)
-        let startFrame = CGRect(x: 0, y: UIScreen.main.bounds.height - NewReminderViewController.pullUpHeaderHeight, width: width, height: height)
+        let startFrame = CGRect(x: 0, y: bottomPosition, width: width, height: height)
         newReminderViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
 
         newReminderViewController.view.frame = startFrame
@@ -48,7 +52,7 @@ final class ReminderListViewController : BaseViewController {
             let topInset: CGFloat = 35
             let width = rect.width
             let height = min(rect.height - (safeAreaInsets.top + topInset + 20), 550)
-            let startFrame = CGRect(x: 0, y: UIScreen.main.bounds.height - NewReminderViewController.pullUpHeaderHeight, width: width, height: height)
+            let startFrame = CGRect(x: 0, y: self.bottomPosition, width: width, height: height)
             self.newReminderViewController.view.frame = startFrame
             self.dimView.alpha = 0
         }
@@ -76,11 +80,6 @@ final class ReminderListViewController : BaseViewController {
         
         pullUpAnimator.startAnimation()
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        //resize & recalculate frame for shadow view & pull up
-    }
 }
 
 extension ReminderListViewController : NewReminderViewControllerPresenter {
@@ -90,7 +89,7 @@ extension ReminderListViewController : NewReminderViewControllerPresenter {
             newReminderViewController.view.endEditing(true)
             if isNewReminderViewExpanded {
                 pullUpAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
-                    let originY = self.view.bounds.height - NewReminderViewController.pullUpHeaderHeight
+                    let originY = self.bottomPosition//self.view.bounds.height - NewReminderViewController.pullUpHeaderHeight
                     self.newReminderViewController.view.frame.origin.y = originY
                     self.dimView.alpha = 0
                 }

@@ -22,15 +22,17 @@ final class DatePickerViewModel : TextInputViewModelProtocol {
     var text: String?
     let placeholder: String?
     var isManualEditingAllowed: Bool
-    var date: Date?
+    var date: Date? {
+        didSet {
+            text = date?.description
+        }
+    }
 }
 
 final class NewReminderViewModel : NewReminderViewModelProtocol {
     let titleViewModel: TextInputViewModel
     let dateViewModel: DatePickerViewModel
-//    let titleViewModel: TextInputViewModel
-//    let titleViewModel: TextInputViewModel
-
+    private let localNotificationService = LocalNotificationsServiceImpl()
     
     init() {
         titleViewModel = TextInputViewModel(placeholder: "Название")
@@ -38,7 +40,7 @@ final class NewReminderViewModel : NewReminderViewModelProtocol {
     }
     
     func scheduleNewReminder() {
-        print(titleViewModel.text)
+        localNotificationService.add(title: titleViewModel.text, time: dateViewModel.date!, repeatInterval: 0, note: "Что то там сделать")
     }
 }
 
@@ -57,6 +59,7 @@ final class NewReminderViewController : BaseViewController {
     
     private let headerTapGestureRecognizer = UITapGestureRecognizer()
     private let pullUpPanGestureRecognizer = UIPanGestureRecognizer()
+    private lazy var imagePickerController = MediaPickerController(delegate: self)
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -98,8 +101,15 @@ final class NewReminderViewController : BaseViewController {
         let photoVm = PhotoAttachmentViewModel(iconName: "photo", placeholder: "Фото из галереи или камеры")
         let micVm = RecordingAttachmentViewModel(iconName: "record", placeholder: "Аудиозапись")
         
-        let attachmentsVms: [AttachmentViewModelProtocol] = [callVm, photoVm, micVm]
-        section1.append(items: attachmentsVms.map { CollectionItem<AttachmentCell>(item: $0) })
+        
+        let callRow = CollectionItem<AttachmentCell>(item: callVm)
+        let imageRow = CollectionItem<AttachmentCell>(item: photoVm)
+        imageRow.onSelect = { _ in
+            self.imagePickerController.present()
+        }
+        let recordRow = CollectionItem<AttachmentCell>(item: micVm)
+        let rows: [AbstractCollectionItem] = [callRow, imageRow, recordRow]
+        section1.append(items: rows)
         director += section1
 
         setupUI()
@@ -148,7 +158,7 @@ final class NewReminderViewController : BaseViewController {
         cancelButton.addTarget(self, action: #selector(_dismiss), for: .touchUpInside)
         let image = #imageLiteral(resourceName: "Close").withRenderingMode(.alwaysTemplate)
         cancelButton.setImage(image, for: .normal)
-        cancelButton.tintColor = Color.activeField
+        cancelButton.tintColor = Color.accent
         titleView.addSubview(cancelButton)
         
         let padding: CGFloat = 8
@@ -179,7 +189,7 @@ final class NewReminderViewController : BaseViewController {
         
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: view.bounds.width * 0.8, height: 44))
         button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
-        button.backgroundColor = Color.activeField
+        button.backgroundColor = Color.accent
         button.setTitle("Добавить".uppercased(), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin,. flexibleWidth]
@@ -211,15 +221,23 @@ final class NewReminderViewController : BaseViewController {
     
     private func showDatePicker() {
         let datepicker = DatePickerViewController()
-        datepicker.delegate = viewModel
+        datepicker.delegate = self
         datepicker.modalPresentationStyle = .overFullScreen
         datepicker.modalTransitionStyle = .crossDissolve
         present(datepicker, animated: true, completion: nil)
     }
 }
 
-extension NewReminderViewModel : DatePickerDelegate {
+extension NewReminderViewController : DatePickerDelegate {
     func didSelect(date: Date) {
-        dateViewModel.date = date
+        viewModel.dateViewModel.date = date
+        let cell = collectionView.cellForItem(at: IndexPath.init(item: 1, section: 0)) as? SingleLineTextInputCell
+        cell?.configure(item: viewModel.dateViewModel)
+    }
+}
+
+extension NewReminderViewController : MediaPickerControllerDelegate {
+    func didPick(image: UIImage) {
+        
     }
 }

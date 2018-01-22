@@ -37,7 +37,7 @@ final class DatePickerViewController : BaseViewController {
         toolbar.setItems([spaceItem, item], animated: false)
         view.addSubview(toolbar)
         
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.3) {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.33)
             self.datePicker.frame = CGRect(x: 0, y: self.view.bounds.height - 216, width: self.view.bounds.width, height: 216)
             toolbar.frame = CGRect(x: 0, y: self.view.bounds.height - self.datePicker.bounds.height-44, width: self.view.bounds.width, height: 44)
